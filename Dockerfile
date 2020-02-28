@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM arm64v8/python:3.8.2
 
 RUN groupadd -r uwsgi && useradd -r -g uwsgi uwsgi
 RUN pip install Flask uWSGI requests redis
