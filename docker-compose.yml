@@ -1,17 +1,28 @@
-identidock:
-  build: .
-  ports:
-   - "5000:5000"
-  environment:
-    ENV: DEV 
-  volumes:
-    - ./app:/app
-  links:
-    - dnmonster
-    - redis
+version: "2"
+services:
+  identidock:
+    image: alicewish/flask:arm64-test
+    container_name: flask
+    ports:
+     - "5000:5000"
+    environment:
+      ENV: DEV
+    volumes:
+      - app:/app
+    working_dir: /app
+    # 运行后执行的命令
+#    command: python main.py
+    links:
+      - redis
 
-dnmonster:
-  image: amouat/dnmonster:1.0
+  redis:
+    image: redis
+    container_name: redis
+#    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - redis:/usr/local/etc/redis
 
-redis:
-  image: redis:3.0
+#docker run -it --name test -p 8080:80 -v /docker/flask/app:/app -w /app tiangolo/uwsgi-nginx-flask:python3.7-alpine3.8 python main.py

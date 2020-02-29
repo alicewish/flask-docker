@@ -1,0 +1,7 @@
+Flask
+uWSGI
+requests
+redis
+scipy
+matplotlib
+pillow
