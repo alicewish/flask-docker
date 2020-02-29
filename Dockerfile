@@ -15,6 +15,9 @@ RUN pip install Flask-Bootstrap Flask-HTTPAuth Flask-Login \
 RUN pip install html2text beautifulsoup4
 
 RUN pip install jieba
+RUN pip install Pillow
+
+RUN pip install opencv-contrib-python
 
 #COPY requirements.txt requirements.txt
 #RUN pip install -r requirements.txt
