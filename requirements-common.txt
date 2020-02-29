@@ -1,0 +1,14 @@
+uWSGI
+requests
+redis
+pillow
+yaml
+pyperclip
+Django
+html2text
+jieba
+beautifulsoup4
+python-wordpress-xmlrpc
+selenium
+torrentool
+transmissionrpc
