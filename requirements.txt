@@ -5,3 +5,15 @@ redis
 scipy
 matplotlib
 pillow
+numpy
+yaml
+pyperclip
+opencv-contrib-python
+Django
+html2text
+jieba
+beautifulsoup4
+python-wordpress-xmlrpc
+selenium
+torrentool
+transmissionrpc
