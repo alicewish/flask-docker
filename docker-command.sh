@@ -1,5 +1,9 @@
 #!/bin/bash
 cd GitHub/flask-docker
+
+docker build -t="alicewish/flask" .
+docker push alicewish/flask
+
 docker build -t="alicewish/flask:arm64" .
 docker push alicewish/flask:arm64
 

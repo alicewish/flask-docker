@@ -21,7 +21,7 @@ RUN pip install xmltodict markdownify pathvalidate
 
 #RUN pip install opencv-contrib-python
 #RUN pip install opencv-python-aarch64
-RUN pip install https://www.piwheels.hostedpi.com/simple/opencv-python/opencv_python-4.1.1.26-cp37-cp37m-linux_armv7l.whl
+#RUN pip install https://www.piwheels.hostedpi.com/simple/opencv-python/opencv_python-4.1.1.26-cp37-cp37m-linux_armv7l.whl
 
 #COPY requirements.txt requirements.txt
 #RUN pip install -r requirements.txt
@@ -36,8 +36,8 @@ RUN pip install https://www.piwheels.hostedpi.com/simple/opencv-python/opencv_py
 #RUN pip install -r requirements-science.txt
 
 WORKDIR /app
-#COPY app /app
-#COPY cmd.sh /
+COPY app /app
+COPY cmd.sh /
 
 EXPOSE 9090 9191
 USER uwsgi
