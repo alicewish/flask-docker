@@ -1,10 +1,159 @@
 # -*- coding: utf-8 -*-
 import platform
 import re
+import subprocess
 import sys
 import time
 
 import pkg_resources
+
+do_not_upgrade = {'pip', }
+
+library_STRING = '''
+pyperclip
+arrow
+beautifulsoup4
+Chronyk
+clipboard
+copyheaders
+html2text
+html5print
+jieba
+json2yaml
+markdown
+markdown2
+markdownify
+mistune
+pep8
+Pillow
+Pygments
+pyinstaller
+python-pushover
+python-wordpress-xmlrpc
+pyyaml
+qiniu
+rarfile
+requests
+requests-html
+
+selenium
+shadowsocks
+stagger
+tomd
+torrentool
+transmissionrpc
+tweepy
+you-get
+youtube-dl
+zhihu_oauth
+basc-py4chan
+pysrt
+webvtt-py
+python-frontmatter
+pypandoc
+
+pypinyin
+pyecharts
+echarts-python
+json2yaml
+bencode-python3
+bencoder
+bendercoder
+wxPython
+regex
+langdetect
+xmltodict
+untangle
+xmljson
+pygeoip
+appjar
+
+pytesseract
+imutils
+opencv-contrib-python
+tensorflow
+h5py
+keras
+ImageAI
+
+pyzbar
+pydot
+
+psd-tools2
+
+pygame
+
+wand
+
+tifffile
+tiffreader
+libtiff
+imageio
+
+
+
+torrent_parser
+
+js2py
+
+Django
+Flask
+
+ahk
+
+pyscreeze
+pymsgbox
+pytweening
+pygetwindow
+pyautogui
+
+webcolors
+
+autopy
+
+wagtail
+autocorrect
+
+cfscrape
+dicttoxml
+
+uWSGI
+redis
+gunicorn
+pymysql
+
+alembic
+bleach
+blinker
+click
+dominate
+Flask
+Flask-Bootstrap
+Flask-HTTPAuth
+Flask-Login
+Flask-Mail
+Flask-Migrate
+Flask-Moment
+Flask-PageDown
+Flask-SQLAlchemy
+Flask-WTF
+html5lib
+itsdangerous
+Jinja2
+Mako
+Markdown
+MarkupSafe
+python-dateutil
+python-dotenv
+python-editor
+six
+SQLAlchemy
+visitor
+webencodings
+Werkzeug
+WTForms
+
+'''
 
 
 def get_platform():
@@ -63,17 +212,44 @@ def get_dists():
             dist_version = ''
         tup = (dist_name, dist_version)
         info_list.append(tup)
-        print(i + 1, dist_name, dist_version)
+        # print(i + 1, dist_name, dist_version)
 
     dist_names = [tup[0] for tup in info_list]
     dist_name_slugs = [filename2permalink(dist_name).lower() for dist_name in dist_names]
     return dist_names, dist_name_slugs, info_list
 
 
+def upgrade_library(info_list):  # 更新
+    for i in range(len(info_list)):
+        tup = info_list[i]
+        dist_name, dist_version = tup
+
+        print(str(i + 1) + '/' + str(len(info_list)))
+        print(dist_name, '/', dist_version)
+
+        command = command_PREFIX + ' ' + dist_name
+
+        if dist_name.lower() not in do_not_upgrade:
+            print(command)
+            subprocess.call(command, shell=True)
+            print('================完成================')
+
+
+def install_library(libraries):  # 安装
+
+    for i in range(len(libraries)):
+        library = libraries[i]
+        print(str(i + 1) + '/' + str(len(libraries)), library)
+
+        command = command_PREFIX + library
+
+        print(command)
+        subprocess.call(command, shell=True)
+        print('================完成================')
+
+
 if __name__ == '__main__':
     start_time = time.time()  # 初始时间戳
-
-    target_dir = ''
 
     os_info = get_platform()
     python_ver = platform.python_version()
@@ -82,6 +258,17 @@ if __name__ == '__main__':
     print(python_ver)
 
     dist_names, dist_name_slugs, info_list = get_dists()
+
+    raw_libraries = [line.strip() for line in library_STRING.splitlines() if line.strip() != '']
+
+    command_PREFIX = "pip3 install --upgrade "
+
+    raw_libraries.sort()
+
+    libraries = [library for library in raw_libraries if filename2permalink(library).lower() not in dist_name_slugs]
+
+    install_library(libraries)
+    upgrade_library(info_list)
 
     # ================运行时间计时================
     print(run_time(start_time))

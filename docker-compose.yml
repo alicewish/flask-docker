@@ -1,7 +1,7 @@
 version: "2"
 services:
   identidock:
-    image: alicewish/flask:arm64-test
+    image: alicewish/flask:arm64
     container_name: flask
     ports:
      - "5000:5000"
@@ -11,7 +11,7 @@ services:
       - app:/app
     working_dir: /app
     # 运行后执行的命令
-    command: python main.py
+    command: python app.py
     links:
       - redis
 

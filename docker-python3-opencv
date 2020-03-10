@@ -17,11 +17,8 @@ RUN pip install html2text beautifulsoup4
 RUN pip install jieba
 RUN pip install Pillow
 
-RUN pip install xmltodict markdownify pathvalidate
-
 #RUN pip install opencv-contrib-python
 #RUN pip install opencv-python-aarch64
-RUN pip install https://www.piwheels.hostedpi.com/simple/opencv-python/opencv_python-4.1.1.26-cp37-cp37m-linux_armv7l.whl
 
 #COPY requirements.txt requirements.txt
 #RUN pip install -r requirements.txt
